@@ -1,0 +1,133 @@
+<ion-header>
+  <common-header>Angular 2</common-header>
+</ion-header>
+<ion-content>
+  <h1 no-margin>Http Error Handling </h1>
+  <div padding>
+
+    <div class="resp-container">
+      <iframe width="560" height="315" src="https://www.youtube.com/embed/gJKuil24Jag" frameborder="0" allow="autoplay; encrypted-media"
+        allowfullscreen></iframe>
+    </div>
+
+    <div class="content1">
+      <h2>
+        Http Error Handling
+      </h2>
+      <p>
+        In this video we will discuss error handling in Angular.
+      </p>
+
+      <p>
+        When using http, to call a web service, errors may occur. When they do occur we want to handle these errors.
+      </p>
+
+      <p>
+        We use the catch operator to catch any exceptions that occur. Before we use the catch operator we have to import it, just
+        like how we imported map operator.
+      </p>
+
+      <expandable hideText="Hide the code" showText="See the code">
+        <textarea class="codepart" cols="65" rows="10">
+          import 'rxjs/add/operator/catch'; 
+          
+          //The catch operator can then be chained to the map operator. 
+          
+          return this._http
+          .get('http://localhost:24535/api/employeess') 
+          .map((response: Response) =] [IEmployee[]]response.json()) 
+          .catch(this.handleError); 
+          
+          //To the catch operator we are passing another method (handleError). 
+          //This handleError() method is called when there is an exception. 
+          
+          handleError(error: Response) { 
+            console.error(error); 
+            return Observable.throw(error); 
+          }
+        </textarea>
+      </expandable>
+      <p>
+        In a real world application we may pass the error to a loggin service to log the error to a file or a database table, so
+        the developers can see these errors and fix them if required. In our case, to keep things simple we are logging to
+        the browser console. Since we want the error message color to be red so it stands out, we are using console.error()
+        method instead of console.log() method to log the error to the browser console. After we log the error, we are throwing
+        the error back, so the components that use this service are notified about the error condition, so they can display
+        a meaningful error message to the user. To use throw, we will have to import it from rxjs
+
+        <br> import 'rxjs/add/Observable/throw';
+      </p>
+    </div>
+    <div class="fullpage_content">
+      <p>
+        We are calling this service from EmployeeListComponent. So we need to handle the error we have thrown from the service and
+        display a meaningful message to the user. We are subscribing to the service, in ngOnInit() life cycle hook of EmployeeListComponent.
+        Notice there are 2 parameters to the subscribe() function. Both these parameters are arrow functions. The first arrow
+        function is called when the Observable successfully emits an item. The second arrow function is called, when there
+        is an error.
+      </p>
+
+      <p>
+        At this point run the application, and notice since we do not have any errors, that data is loaded as expected. Now let's
+        introduce an error. In employee.component.ts file
+      </p>
+
+      <p>
+        Change the url from http://localhost:24535/api/employees
+      </p>
+
+      <p>
+        To (Notice the extra "s" at the end) http://localhost:24535/api/employeess
+      </p>
+
+      <p>
+        At this point when you reload the page in the browser, you will see the message "Loading data. Please wait...", but the data
+        never loads.
+      </p>
+
+      <p>
+        This message - "Loading data. Please wait..." is misleading in this case. Instead we should be displaying a meaningful message
+        like - "Problem with the service. Please try again after sometime".
+      </p>
+
+      <p>
+        To do this in the view template of EmployeeListComponent (employeeList.component.html) bind to statusMessage property of
+        the EmployeeListComponent class as shown below.
+      </p>
+
+      <expandable hideText="Hide the code" showText="See the code">
+        <textarea class="codepart" cols="65" rows="10">
+          <tr *ngIf="!employees"> 
+            <td colspan="5"> 
+              {statusMessage} 
+            </td> 
+          </tr>
+        </textarea>
+      </expandable>
+
+      <p>
+        With the above change, while the service is busy retrieving data, we see the message "Loading data. Please wait..." and if
+        there is an error we see the message "Problem with the service. Please try again after sometime"
+      </p>
+
+      <p>
+        If you comment the following import statement in employee.service.ts, the exception handling still works as expected.
+        <br> import 'rxjs/add/Observable/throw';
+      </p>
+
+      <p>
+        However, without the above import statement in employee.service.ts file, if you try to log the error object to the console
+        in ngOnInit() method of EmployeeListComponent the logging does not work as expected.
+      </p>
+
+      <p>
+        You will see a message stating - observable_1.observable.throw is not a function, which is not the error message we expected.
+        Angular is complaining that it cannot find throw.
+      </p>
+
+      <p>
+        If you uncomment the import statement in employee.service.ts file, then we see the error message we expect.
+      </p>
+    </div>
+  </div>
+</ion-content>

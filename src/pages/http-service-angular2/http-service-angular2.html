@@ -1,0 +1,110 @@
+<ion-header>
+  <common-header>Angular 2</common-header>
+</ion-header>
+
+<ion-content>
+
+  <h1 no-margin>HTTP Service in Angular 2 </h1>
+  <div padding>
+    <div class="resp-container">
+      <iframe width="560" height="315" src="https://www.youtube.com/embed/DETRfgZGuk8" frameborder="0" allow="autoplay; encrypted-media"
+        allowfullscreen></iframe>
+    </div>
+
+    <div class="content1">
+      <h2>Angular2 HTTP service </h2>
+
+      <p>
+        In this video we will discuss
+      </p>
+
+      <p>
+        1. How to call ASP.NET Web API service using Angular 2 http service. Though this example demonstrates calling ASP.NET Web
+        API service, we can use this same approach to call any web service built using any server side technology.
+        <br> 2. We will also briefly discuss Observable pattern
+      </p>
+
+      <p>
+        In our previous video we have created ASP.NET EmployeeWebAPIService. Here are the steps to call the Web API service using
+        the Angular builtin http service.
+      </p>
+
+      <p>
+        Step 1 - Import the angular HTTP module : The first step is to import HttpModule which is present in a separate javascript
+        file - @angular/http. After the HttpModule is imported, include it in the imports array of the NgModule() decorator
+        of our root module "AppModule" which is in "app.module.ts" file. With this change we can now start using the angular
+        built-in http service throught our application to access web services over HTTP.
+      </p>
+
+      <expandable hideText="Hide the text" showText="See the code">
+        <textarea class="codepart" cols="65" rows="8">
+            import { HttpModule } from '@angular/http'; 
+            
+            @NgModule({ 
+              imports: [ HttpModule], 
+              declarations: [ ], 
+              bootstrap: [AppComponent] 
+            }) 
+            
+            export class AppModule { }
+        </textarea>
+      </expandable>
+    </div>
+    <br>
+
+    <div class="fullpage_content">
+      <!-- old code -->
+      <p>
+        Step 2 - Modify angular EmployeeService to issue a GET request using the builtin http service
+      </p>
+
+      <p>
+        1. The angular EmployeeService is in employee.service.ts file.
+        <br> 2. Use the EmployeeService class constructor to inject Angular Http service. The injected http service can then
+        be used anywhere in this class to call a web service over http.
+        <br> 3. Since this Angular EmployeeService class has an injected dependency, @Injectable() decorator is required on this
+        class. If there are no injectable dependencies then we may omit the @Injectable() decorator, but angular strongly
+        recomends to use the @Injectable() decorator irrespective of there are injectible dependencies or not for consistency
+        and future proof.
+        <br> 4. Notice in the getEmployees() method, we are using the get() method of the angular http service to issue a get
+        request over http.
+        <br> 5. If you right click on get() method and go to it's definition you will notice that this method return Observable[Response].
+        <br> 6. Observable[Response] is not that useful to us, so we have set the return type of getEmployees() method to Observable[IEmployee[]]
+        <br> 7. To convert Observable[Response] to Observable[IEmployee[]] we are using the map operator provided by rxjs.
+      </p>
+
+      <p>
+        At the moment, we are not handling exceptions. We will discuss how to handle exceptions in our upcoming videos.
+      </p>
+
+      <h2>What is an Observable</h2>
+
+      <p>
+        1. Observable is an asynchronous pattern. In the Observable pattern we have an Observable and an Observer. Observer observes
+        the Observable. In many implementations an Observer is also called as a Subscriber.
+        <br> 2. An Observable can have many Observers (also called Subscribers).
+        <br> 3. Observable emits items or notifications over time to which an Observer (also called Subscriber) can subscribe.
+        <br> 4. When a subscriber subscribes to an Observable, the subscriber also specifies a callback function.
+        <br> 5. This subscriber callback function is notified as and when the Observable emits items or notifications.
+        <br> 6. Within this callback function we write code to handle data itmes or notifications received from the Observable.
+      </p>
+
+      <p>
+        Step 3 - Subscribe to the Observable returned by angular EmployeeService : EmployeeListComponent needs the employees data
+        returned by the service. So in the ngOnInit() method of "employeeList.component.ts" use the subscribe method as shown
+        below.
+      </p>
+
+      <expandable showText="See the code" hideText="Hide the code">
+        <textarea class="codepart" cols="65" rows="5">
+            ngOnInit() 
+            { 
+              this._employeeService.getEmployees() 
+              .subscribe(employeesData => 
+              this.employees = employeesData); 
+            }
+        </textarea>
+      </expandable>
+    </div>
+  </div>
+</ion-content>

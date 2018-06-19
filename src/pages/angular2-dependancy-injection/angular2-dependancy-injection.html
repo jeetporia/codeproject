@@ -1,0 +1,86 @@
+<ion-header>
+  <common-header>Angular 2</common-header>
+</ion-header>
+
+<ion-content>
+
+  <h1 no-margin>Dependancy Injection in Angular 2 </h1>
+  <div padding>
+    <div class="resp-container">
+      <iframe width="560" height="315" src="https://www.youtube.com/embed/jWODteEGQmw" frameborder="0" allow="autoplay; encrypted-media"
+        allowfullscreen></iframe>
+    </div>
+
+    <div class="content1">
+      <h2>Dependancy Injection in Angular2 </h2>
+
+      <p>
+        In this video we will discuss
+        <br> 1. What is Dependency Injection
+        <br> 2. How dependency injection works in angular
+      </p>
+
+      <p>
+        Let us understand Dependency Injection in Angular with an example. Consider this piece of code in EmployeeListComponent.
+      </p>
+
+      <expandable hideText="Hide the code" showText="See the code">
+        <textarea class="codepart" cols="65" rows="10">
+          export class EmployeeListComponent implements OnInit { 
+            
+            private _employeeService: EmployeeService; 
+            constructor(_employeeService: EmployeeService) { 
+              this._employeeService = _employeeService; 
+            } 
+            
+            ngOnInit() { 
+              this._employeeService.getEmployees() 
+              .subscribe( employeesData => this.employees = employeesData, 
+              error => this.statusMessage = 'Error'); 
+            } 
+
+          // Rest of the code 
+          } 
+        </textarea>
+      </expandable>
+
+      <p>
+        1. We register a service with the angular injector by using the providers property of @Component decorator or @NgModule decorator.
+      </p>
+      <p>
+        2. When a component in Angular needs a service instance, it does not explicitly create it. Instead it just specifies it has
+        a dependency on a service and needs an instance of it by including the service as a constructor parameter.
+      </p>
+    </div>
+
+    <div class="fullpage_content">
+      <p>
+        3. When an instance of the component is created, the angular injector creates an instance of the service class and provides
+        it to component constructor.
+      </p>
+      <p>
+        4. So the component which is dependent on a service instance, receives the instance from an external source rather than creating
+        it itself. This is called Dependency Injection.
+      </p>
+
+      <h2> What is Dependancy Injection</h2>
+
+      <p>
+        It's a coding pattern in which a class receives its dependencies from an external source rather than creating them itself.
+      </p>
+
+      <p>
+        So if we relate this definition to our example, EmployeeListComponent has a dependency on EmployeeService. The EmployeeListComponent
+        receives the dependency instance (i.e EmployeeService instance) from the the external source (i.e the angular injector)
+        rather than creating the instance itself.
+      </p>
+
+      <p>
+        1. Why should we use Dependency Injection?
+        <br> 2. What benefits it provide?
+        <br> 3. Why can't we explicitly create an instance of the EmployeeService class using the new keyword and use that instance
+        instead in our EmployeeListComponent?
+      </p>
+    </div>
+  </div>
+</ion-content>

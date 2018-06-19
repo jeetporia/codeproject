@@ -1,0 +1,146 @@
+<ion-header>
+  <common-header>Angular 2</common-header>
+</ion-header>
+
+<ion-content>
+
+  <h1 no-margin>Why Dependancy Injection </h1>
+  <div padding>
+    <div class="resp-container">
+      <iframe width="560" height="315" src="https://www.youtube.com/embed/EzioZ9cww08" frameborder="0" allow="autoplay; encrypted-media"
+        allowfullscreen></iframe>
+    </div>
+
+    <div class="content1">
+      <h2>Why Dependancy Injection</h2>
+
+      <p>
+        In this video we will discuss why should we use dependency injection and the benefits it provide. Let us understand this
+        with a very simple example.
+      </p>
+
+      <p>
+        We want to build a Computer. In reality to build a computer we need several objects like processor, ram, harddisk drive etc.
+        To keep this example simple let's say we just need a processor object to build a computer.
+
+      </p>
+
+      <p>
+        Our Computer and Processor classes are as shown below. Notice at the moment, we are not using dependency injection. To build
+        a Computer we need a Processor object and the Computer class is creating an instance of the Processor class it needs.
+      </p>
+
+      <p>
+        There are 3 fundamental problems with this code
+        <br> 1. This code is difficult to maintain over time
+        <br> 2. Instances of dependencies created by a class that needs those dependencies are local to the class and cannot
+        share data and logic.
+        <br> 3. Hard to unit test
+      </p>
+
+      <expandable hideText="Hide the code" showText="See the code">
+        <textarea class="codepart" cols="65" rows="10">
+            export class Computer { 
+              
+              private processor: Processor; 
+              constructor() { 
+                this.processor = new Processor(); 
+              } 
+            } 
+            
+            export class Processor { 
+              constructor() { 
+              
+            } 
+          }
+        </textarea>
+      </expandable>
+
+    </div>
+
+    <div class="fullpage_content">
+      <p>
+        Now let us understand why this code is difficult to maintain. Let us say, the Processor class needs to know the speed of
+        the processor to be able to create an inatnce of it. One way to address this requirement is by passing the processor
+        speed as a parameter to the constructor of the Processor class as shown below.
+      </p>
+
+      <expandable hideText="Hide the code" showText="See the code">
+        <textarea class="codepart" cols="65" rows="5">
+            export class Processor 
+            { 
+              constructor(speed: number) {
+
+               } 
+            }
+        </textarea>
+      </expandable>
+
+      <p>
+        This change in the Processor class breaks the Computer class. So every time the Processor class changes, the Computer class
+        also needs to be changed. At the moment, the Computer class has only one dependency. In reality it may have many
+        dependencies and those dependencies inturn may have other dependencies. So when any of these dependencies change,
+        the Computer class may also need to be changed. Hence this code is difficult to maintain.
+      </p>
+
+      <p>
+        The reason we have this problem is because the Computer class itself is creating the instance of the Processor class. Instead
+        if an external source can create the processor instance and provide it to the computer class, then this problem can
+        be very easily solved and that's exactly what dependency injection does. I have rewritten the above code using dependency
+        injection, DI for short as shown below.
+      </p>
+
+      <expandable hideText="Hide the code" showText="See the code">
+        <textarea class="codepart" cols="65" rows="10">
+            export class Computer { 
+              
+              private processor: Processor; 
+              
+              constructor(processor: Processor) { 
+                this.processor = processor; 
+              } 
+            } 
+            export class Processor {
+              constructor(speed: number) {
+
+               } 
+            } 
+        </textarea>
+      </expandable>
+
+      <p>
+        Notice with DI, the Computer class is not creating the instance of the Processor class itself. Instead we have specified
+        that the Computer class has a dependency on Processor class using the constructor. Now, when we create an instance
+        of the Computer class, an external source i.e the Angular Injector will provide the instance of the Processor class
+        to the Computer class. Since now the the Angular injector is creating the dependency instance, the Computer class
+        need not change when the Processor class changes.
+      </p>
+
+      <p>
+        Now, let us understand the second problem - Instances of dependencies created by a class that needs those dependencies are
+        local to the class and cannot share data and logic. The Processor class instance created in the Computer class is
+        local to the Computer class and cannot be shared.
+      </p>
+
+      <p>
+        On the other hand if we use Dependency Injection (DI), the angular injector provides a Singleton i.e a single instance of
+        the service so the data and logic can be shared very easily across all the components.
+      </p>
+
+      <p>
+        From unit testing standpoint, it is difficult to mock the processor object, so unit testing Computer class can get complex.
+        In this example, the Computer class has just one dependency (i.e the dependency on the Processor object).
+      </p>
+
+      <p>
+        In a real world application, a given object may have a dependency on several other objects, and those dependencies inturn
+        may have dependencies on other objects. Just imagine, how complicated unit testing can become with all these hierarchies
+        of dependencies if we do not have the ability to mock the dependencies.
+      </p>
+
+      <p>
+        With Dependency Injection it is very easy to mock objects when unit testing. This is one of the greatest benefits of DI.
+      </p>
+    </div>
+  </div>
+</ion-content>

@@ -1,0 +1,191 @@
+<ion-header>
+  <common-header>Angular 2</common-header>
+</ion-header>
+
+<ion-content>
+
+  <h1 no-margin>ASP.Net Web API in Angular 2 </h1>
+  <div padding>
+    <div class="resp-container">
+      <iframe width="560" height="315" src="https://www.youtube.com/embed/FQ__z26TsHU" frameborder="0" allow="autoplay; encrypted-media"
+        allowfullscreen></iframe>
+    </div>
+
+    <div class="content1">
+      <h2>Consume ASP.Net web Api in Angular2 </h2>
+
+      <p>
+        In this video we will discuss creating ASP.NET Web API service that retrieves employees data from a database table. In our
+        next video we will discuss, how to call this ASP.NET Web API service using Angular
+      </p>
+
+      <p>
+        Step 1 : Execute the following SQL Script using SQL Server Management studio. This script creates
+      </p>
+
+      <p>
+        1. EmployeeDB database
+        <br> 2. Creates the Employees table and populate it with sample data
+      </p>
+
+      <p>
+        Create Database EmployeeDB
+        <br> Go
+      </p>
+
+      <p>
+        Use EmployeeDB
+        <br> Go
+      </p>
+      <expandable hideText="Hide the code" showText="See the code">
+        <textarea class="codepart" cols="65" rows="5">
+              Create table Employees ( code nvarchar(50) primary key, 
+                                          name nvarchar(50), 
+                                          gender nvarchar(50), 
+                                          annualSalary decimal(18,3), 
+                                          dateOfBirth nvarchar(50))
+          </textarea>
+      </expandable>
+    </div>
+
+    <div class="fullpage_content">
+      <p>
+        Go
+      </p>
+      <expandable hideText="Hide the code" showText="See the code">
+        <textarea class="codepart" cols="85" rows="5">
+              Insert into Employees values ('emp101', 'Tom', 'Male', 5500, '6/25/1988') 
+              Insert into Employees values ('emp102', 'Alex', 'Male', 5700.95, '9/6/1982') 
+              Insert into Employees values ('emp103', 'Mike', 'Male', 5900, '12/8/1979') 
+              Insert into Employees values ('emp104', 'Mary', 'Female', 6500.826, '10/14/1980') 
+              Insert into Employees values ('emp105', 'Nancy', 'Female', 6700.826, '12/15/1982')
+          </textarea>
+      </expandable>
+
+      <p>
+        Step 2 : To keep Angular and Web API projects separate, let's create a new project for our Web API Service. Right click on
+        "Angular2Demo" solution in the Solution Explorer and select Add - New Project.
+      </p>
+
+      <p>
+        Step 3 : In the Add New Project window Select "Visual C#" under "Installed - Templates" From the middle pane select, ASP.NET
+        Web Application Name the project "EmployeeWebAPIService" and click "OK"
+      </p>
+
+      <p>
+        Step 4 : On the next window, select "Web API" and click "OK". At this point you should have the Web API project created.
+      </p>
+
+      <p>
+        Step 5 : Add ADO.NET Entity Data Model to retrieve data from the database. Right click on "EmployeeWebAPIService" project
+        and select Add - New Item In the "Add New Item" window Select "Data" from the left pane Select ADO.NET Entity Data
+        Model from the middle pane In the Name text box, type EmployeeDataModel and click Add
+      </p>
+
+      <p>
+        Step 6 : On the Entity Data Model Wizard, select "EF Designer from database" option and click next
+      </p>
+
+      <p>
+        Step 7 : On the next screen, click "New Connection" button
+      </p>
+
+      <p>
+        Step 8 : On "Connection Properties" window, set
+        <br> Server Name = (local)
+        <br> Authentication = Windows Authentication
+        <br> Select or enter a database name = EmployeeDB Click OK and then click Next
+      </p>
+
+      <p>
+        Step 9: On the nex screen, select "Employees" table and click Finish.
+      </p>
+
+      <h2> Adding Web API Controller</h2>
+
+      <p>
+        1. Right click on the Controllers folder in EmployeeWebAPIService project and select Add - Controller
+      </p>
+
+      <p>
+        2. Select "Web API 2 Controller - Empty" and click "Add"
+      </p>
+
+      <p>
+        3. On the next screen set the Controller Name = EmployeesController and click Add
+      </p>
+
+      <p>
+        4. Copy and paste the following code in EmployeesController.cs
+      </p>
+
+      <expandable hideText="Hide the code" showText="See the code">
+        <textarea class="codepart" cols="85" rows="15">
+        using System.Collections.Generic; 
+        using System.Linq; 
+        using System.Web.Http; 
+        
+        namespace EmployeeWebAPIService.Controllers 
+        { 
+          public class EmployeesController : ApiController 
+          { 
+            public IEnumerable[Employee] Get() 
+            { 
+              using (EmployeeDBEntities entities = new EmployeeDBEntities()) 
+              { 
+                return entities.Employees.ToList(); 
+              } 
+            } 
+            
+            public Employee Get(string code) 
+            { 
+              using (EmployeeDBEntities entities = new EmployeeDBEntities()) 
+              { 
+                return entities.Employees.FirstOrDefault(e =] e.code == code); 
+              } 
+            } 
+          } 
+        }
+      </textarea>
+      </expandable>
+
+      <p>
+        At this point when you navigate to /api/employees you will see all the employees as expected. However, when you navigate
+        to /api/employees/emp101, we expect to see employee whose employee code is emp101, but we still see the list of all
+        employees. This is because the parameter name for the Get() method in EmployeesController is "code"
+      </p>
+
+      <expandable hideText="Hide the code" showText="See the code">
+        <textarea class="codepart" cols="85" rows="5">
+            public Employee Get(string code) 
+            { 
+              using (EmployeeDBEntities entities = new EmployeeDBEntities()) 
+              { 
+                return entities.Employees.FirstOrDefault(e =] e.code == code); 
+              } 
+          } 
+        </textarea>
+      </expandable>
+
+      <p>
+        but in the default Web API route in WebApiConfig.cs file the parameter name is id. Change this to "code" as shown below
+      </p>
+
+      <expandable showText="See the code" hideText="Hide the code">
+        <textarea class="codepart" rows="5" cols="85">
+            config.Routes.MapHttpRoute( 
+              name: "DefaultApi", 
+              routeTemplate: "api/{controller}/{code}", 
+            defaults: new { 
+              code = RouteParameter.Optional 
+            } 
+            );
+        </textarea>
+      </expandable>
+
+      <p>
+        With this change if we navigate to /api/employees/emp101 we see just that employee whose employee code is "emp101"
+      </p>
+    </div>
+  </div>
+</ion-content>

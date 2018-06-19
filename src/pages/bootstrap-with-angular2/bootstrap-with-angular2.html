@@ -1,0 +1,124 @@
+<ion-header>
+  <common-header>Angular 2</common-header>
+</ion-header>
+
+<ion-content>
+
+  <h1 no-margin>Bootstrap with Angular 2 </h1>
+  <div padding>
+    <div class="resp-container">
+      <iframe width="560" height="315" src="https://www.youtube.com/embed/OrH90MiFthM" frameborder="0" allow="autoplay; encrypted-media"
+        allowfullscreen></iframe>
+    </div>
+
+    <div class="content1">
+      <h2>Bootstrap with Angular2 </h2>
+
+      <p>
+        In this video we will discuss
+        <br> 1. How to install and use Bootstrap with Angular
+        <br> 2. How to enable intellisense for bootstrap in Visual Studio
+      </p>
+
+      <p>
+        How to install and use Bootstrap with Angular : There are several ways to install Bootstrap. One way is by using Node.js
+        command prompt.
+      </p>
+
+      <p>
+        Step 1 : Open node.js command prompt window. s
+      </p>
+
+      <p>
+        Step 2 : In the command prompt navigate to the folder that contains your angular project and type the following command and
+        press enter key. As Bootstrap has a dependency on jQuery, we are installing jQuery as well.
+        <br> npm install bootstrap@3 jquery --save
+      </p>
+
+      <p>
+        This installs both Bootstrap and jQuery for use with our Angular project. The required Bootstrap and jQuery files are copied
+        into the node_modules folder within the project directory.
+      </p>
+    </div>
+
+    <div class="fullpage_content">
+      <p>
+        Also, notice package.json file is also automatically updated with both the dependencies (Bootstrap and jQuery)
+      </p>
+
+      <p>
+        Step 3 : Finally in index.html file add the following script and link elements to reference the required CSS and JS files.
+        As you can see, these files are being served from the node_modules folder.
+      </p>
+
+      <expandable hideText="Hide the code" showText="See the code">
+        <textarea class="codepart" cols="85" rows="5">
+          <script src="/node_modules/jquery/dist/jquery.min.js">
+          </script> 
+          <link href="/node_modules/bootstrap/dist/css/bootstrap.min.css" rel="stylesheet" /> 
+          <script src="/node_modules/bootstrap/dist/js/bootstrap.min.js">
+          </script>
+        </textarea>
+      </expandable>
+
+      <p>
+        The problem at the moment is intellisense for Bootstrap CSS classes is not working in index.html, or any of the components
+        html files
+      </p>
+
+      <h2>
+        enable intellisense for bootstrap in Visual Studio.
+      </h2>
+
+      <p>
+        Step 1 : In Visual Studio, click to select the Angular project and then click on "Show All Files" icon. You will then see
+        "node_modules" folder.
+      </p>
+
+      <p>
+        Step 2 : Expand "node_modules" folder. Locate "bootstrap" folder. Right click on it and select "Include In Project" option
+        from the context menu.
+      </p>
+
+      <p>
+        At this point you should get bootstrap intellisense in index.html and all angular component html files. If you still do not
+        get bootstrap intellisense, please restart Visual Stduio and you will get intellisense.
+      </p>
+
+      <p>
+        As I said before, there are several ways to install bootstrap. One way is by using Node.js command prompt. The other way
+        is by using Visual Stduio NuGet package manager. To install Bootstrap using NuGet package manager follow these steps.
+      </p>
+
+      <p>
+        Step 1 : In Visual Studio Solution Explorer, right click on the Angular project and select "Manage NuGet Packages" option
+        from the context menu
+      </p>
+
+      <p>
+        Step 2 : In the "NuGet Package Manager" window Click on the "Browse" link In the textbox,
+        <br> type "Bootstrap" and press "enter" key
+        <br> Click on the first item which says - Bootstrap
+        <br> Click on the arrow pointing downwards to install
+      </p>
+
+      <p>
+        The required CSS and JS files are placed in Content and Script folders. Finally place the required CSS and JS files in index.html
+        page to start using Bootstrap. If you install Bootstrap using NuGet you don't have to do anything else to get bootstrap
+        intellisense.
+      </p>
+
+      <p>
+        If you do not want to download bootstrap, you can use their CDN links. You can find the official Bootstrap CDN links at the
+        following page.
+
+        <br>
+        <a href="http://getbootstrap.com/getting-started/" style="color: blue">http://getbootstrap.com/getting-started/</a>
+      </p>
+
+      <p>
+        Besides these 3 ways, there are other ways of installing Bootstrap. Which way to use depends on your project needs.
+      </p>
+    </div>
+  </div>
+</ion-content>

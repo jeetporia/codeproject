@@ -1,0 +1,139 @@
+<ion-header>
+  <common-header>Angular 2</common-header>
+</ion-header>
+
+<ion-content>
+
+  <h1 no-margin>Routing in Angular 2 </h1>
+  <div padding>
+    <div class="resp-container">
+      <iframe width="560" height="315" src="https://www.youtube.com/embed/L8TAn9OcdqU" frameborder="0" allow="autoplay; encrypted-media"
+        allowfullscreen></iframe>
+    </div>
+
+    <div class="content1">
+      <h2>Routing in Angular2 </h2>
+
+      <p>
+        In this video we will discuss the basics of routing in Angular 2. Routing allows users to navigate from one view to another
+        view.
+      </p>
+
+      <p>
+        At the moment, we have EmployeeListComponent in our application. Let's create another simple HomeComponent so we can see
+        how to navigate from HomeComponent to EmployeeListComponent and vice-versa.
+      </p>
+
+      <p>
+        If the user tries to navigate to a route that does not exist, we want to route the user to PageNotFoundComponent. So let's
+        create this component as well.
+      </p>
+
+      <p>
+        Here are the steps to implement routing in Angular 2 applicatios
+      </p>
+
+      <p>
+        Step 1 : Set [base href] in the application host page which is index.html. The [base href] tells the angular router how to
+        compose navigation URL
+      </p>
+
+      <textarea class="codepart" cols="20" rows="1">
+        <base href="/src/">
+      </textarea>
+
+    </div>
+
+    <div class="fullpage_content">
+      <p>
+        Step 2 : In our angular application root module (app.module.ts), import RouterModule and Routes array and define routes as
+        shown below.
+      </p>
+
+      <expandable hideText="Hide the code" showText="See the code">
+        <textarea class="codepart" cols="125" rows="10">
+            import { RouterModule, Routes } from '@angular/router'; 
+            
+            // Routes is an array of Route objects 
+            // Each route maps a URL path to a component 
+            // The 3rd route specifies the route to redirect to if the path 
+            // is empty. In our case we are redirecting to /home 
+            // The 4th route (**) is the wildcard route. This route is used 
+            // if the requested URL doesn't match any other routes already defined 
+            
+            const appRoutes: Routes = [ { 
+              path: 'home', 
+              component: HomeComponent 
+            }, 
+            { 
+              path: 'employees', 
+              component: EmployeeListComponent 
+            }, 
+            { 
+              path: '', 
+              redirectTo: '/home', 
+              pathMatch: 'full' 
+            }, 
+            { 
+              path: '**', 
+              component: PageNotFoundComponent 
+            } ]; 
+            // To let the router know about the routes defined above, 
+            // pass "appRoutes" constant to forRoot(appRoutes) method 
+            
+            @NgModule({ 
+              imports: [ BrowserModule, FormsModule, HttpModule, RouterModule.forRoot(appRoutes) ], declarations: [AppComponent, HomeComponent, …], 
+              bootstrap: [AppComponent] 
+            }) 
+            
+            export class AppModule { }
+        </textarea>
+      </expandable>
+
+      <p>
+        Important: The order of the routes is very important. When matching routes, Angular router uses first-match wins strategy.
+        So more specific routes should be placed above less specific routes. In the configuration above, routes with a static
+        path are listed first, followed by an empty path route, that matches the default route. The wildcard route comes
+        last because it matches every URL and should be selected only if no other routes are matched first.
+      </p>
+
+      <p>
+        Step 3 : Tie the routes to application menu. Modify the root component (app.component.ts) as shown below. The only change
+        we made is in the inline template.
+      </p>
+      <p>
+        We are using Bootstrap nav component to create the menu. We discussed Bootstrap nav component in Part 27 of Bootstrap tutorial.
+        <br> The routerLink directive tells the router where to navigate when the user clicks the link. The routerLinkActive
+        directive is used to add the active bootstrap class to the HTML navigation element whose route matches the active
+        route.
+        <br> The router-outlet directive is used to specify the location where we want the routed component's view template to
+        be displayed.
+        <br> The routerLink, routerLinkActive and router-outlet directives are provided by the RouterModule which we have imported
+        in our application root module.
+        <br> If you forget to specify the router-outlet directive, you will get and error stating - cannot find primary outlet
+        to load component.
+      </p>
+
+      <p>
+        Step 4 : Finally in web.config file of our angular application include url-rewrite rule to tell IIS how to handle routes.
+      </p>
+
+      <p>
+        If you do not have the above url rewrite rule, when you referesh the page you will 404 page not found error.
+      </p>
+
+      <p>
+        To use "hash style" urls instead of HTML5 style url's, you just need to make one change in app.module.ts file. Set useHash
+        property to true and pass it to the forRoot() method as shown below.
+      </p>
+
+      <textarea class="codepart" cols="65" rows="2">
+          RouterModule.forRoot(appRoutes, { useHash: true })
+      </textarea>
+
+      <p>
+        If you are using "hash style" routes, we don't need the URL rewrite rule in web.config file.
+      </p>
+    </div>
+  </div>
+</ion-content>

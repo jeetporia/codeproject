@@ -1,0 +1,137 @@
+<ion-header>
+  <common-header>Angular 2</common-header>
+</ion-header>
+
+<ion-content>
+
+  <h1 no-margin>Lifecycle hooks in Angular 2 </h1>
+  <div padding>
+    <div class="resp-container">
+      <iframe width="560" height="315" src="https://www.youtube.com/embed/RCLwwWQ8-V0" frameborder="0" allow="autoplay; encrypted-media"
+        allowfullscreen></iframe>
+    </div>
+
+    <div class="content1">
+      <h2>What is Lifecycle Hooks in Angular 2</h2>
+
+      <p>
+        In this video we will discuss Angular component lifecycle hooks.
+      </p>
+
+      <p>
+        A component has a lifecycle managed by Angular. Angular
+        <br> 1. Creates the component
+        <br> 2. Renders the component
+        <br> 3. Creates and renders the component children
+        <br> 4. Checks when the component data-bound properties change, and
+        <br> 5. Destroys the component before removing it from the DOM
+      </p>
+
+      <p>
+        To tap into and react when these life cycle events occur, angular offers several lifecycle hooks
+      </p>
+
+      <p>
+        The 3 most commonly used hooks are
+        <br> ngOnChanges - Executes, every time the value of an input property changes. The hook method receives a SimpleChanges
+        object containing current and previous property values. This is called before ngOnInit.
+        <br> ngOnInit - Executes after the constructor and after ngOnChange hook for the first time. It is most commonly used
+        for component initialisation and retrieving data from a database.
+        <br> ngOnDestroy - Executes just before angular destroys the component and generally used for performing cleanup.
+      </p>
+
+    </div>
+
+    <div class="fullpage_content">
+      <p>
+        There are 3 simple steps to use the Life Cycle Hooks
+        <br> Step 1 : Import the Life Cycle Hook interface. For example, to use ngOnInit() life cycle hook, import OnInit interface.
+      </p>
+
+      <expandable hideText="Hide the code" showText="See the code">
+        <textarea class="codepart" cols="65" rows="1">
+            import { OnInit } from '@angular/core';
+        </textarea>
+      </expandable>
+
+      <p>
+        Step 2 : Make the component class implement the Life Cycle Hook interface, using the implements keyword as shown below. This
+        step is optional, but good to have so you will get editor support and flags errors at compile time if you incorrectly
+        implement the interface method or make any typographical errors.
+      </p>
+
+      <expandable hideText="Hide the code" showText="See the code">
+        <textarea class="codepart" cols="65" rows="1">
+            export class SimpleComponent implements OnInit { }
+        </textarea>
+      </expandable>
+
+      <p>
+        Step 3 : Write the implementation code for the life cycle interface method. Each interface has a single hook method whose
+        name is the interface name prefixed with ng.
+      </p>
+
+      <expandable hideText="Hide the code" showText="See the code">
+        <textarea class="codepart" rows="3" cols="65">
+            ngOnInit() { 
+              console.log('OnInit Life Cycle Hook'); 
+            }
+        </textarea>
+      </expandable>
+
+      <p>
+        Let's understand ngOnChanges life cycle hook with a simple example. Here is what we want to do. As soon as the user starts
+        typing into the text box, we want to capture the current and previous value and log it to the browser console. We
+        can very easily achieve this by using the ngOnChanges life cycle hook.
+      </p>
+
+      <p>
+        ngOnChanges, is called every time the value of an input property of a component changes. So first let's create a SimpleComponent
+        with an input property as shown below. We will continue with the example we worked with in our previous video. Add
+        a new folder in the App folder and name it Others. Add a new TypeScript file to this folder and name it - simple.component.ts.
+        Copy and paste the following code which is commented and self explanatory.
+      </p>
+
+      <expandable hideText="Hide the code" showText="See the code">
+        <textarea class="codepart" rows="15" cols="85">
+            // Step 1 : Import OnChanges and SimpleChanges
+
+            import { Component, Input, OnChanges, SimpleChanges } from '@angular/core'; 
+            // The selector "simple" will be used as the directive 
+            // where we want to use this component. Notice we are 
+            // also using the simpleInput property with interpolation 
+            // to display the value it receives from the parent 
+            // component 
+            
+            @Component({ 
+              selector: 'simple', 
+              template: `You entered : {{simpleInput}}` 
+            })    
+            
+            // Step 2 : Implement OnChanges Life Cycle Hook interface export class SimpleComponent implements OnChanges { 
+              // Input property. As and when this property changes 
+              // ngOnChanges life cycle hook method is called @Input() simpleInput: string; 
+              // Step 3 : Implementation for the hook method 
+              // This code logs the current and previous value 
+              // to the console. 
+              
+              ngOnChanges(changes: SimpleChanges) { 
+                for (let propertyName in changes) { 
+                  let change = changes[propertyName]; 
+                  let current = JSON.stringify(change.currentValue); 
+                  let previous = JSON.stringify(change.previousValue); 
+                  console.log(propertyName + ': currentValue = ' + current + ', 
+                  previousValue = ' + previous); 
+                  
+                  // The above line can be rewritten using 
+                  // placeholder syntax as shown below 
+                  // console.log(`${propertyName}: currentValue 
+                  // = ${current }, previousValue = ${previous }`); 
+          } 
+        } 
+      }
+          </textarea>
+      </expandable>
+    </div>
+  </div>
+</ion-content>

@@ -1,0 +1,125 @@
+<ion-header>
+  <common-header>Angular 2</common-header>
+</ion-header>
+
+<ion-content>
+
+  <h1 no-margin>Route Parameter in Angular 2 </h1>
+  <div padding>
+    <div class="resp-container">
+      <iframe width="560" height="315" src="https://www.youtube.com/embed/kcEs2ZajSR8" frameborder="0" allow="autoplay; encrypted-media"
+        allowfullscreen></iframe>
+    </div>
+
+    <div class="content1">
+      <h2>Route Parameter</h2>
+      <p>
+        In this video we will discuss passing parameters to routes in Angular. Let us understand this with an example. We want to
+        make Employee Code on Employee List component clickable.
+      </p>
+
+      <p>
+        When we click on an Employee code, we want to redirect the user to Employee Component which displays that specific employee
+        details. In the URL we will pass the emploee code as a parameter. So clicking on EMP101 will redirect the user to
+        URL
+        <a href="http://localhost/employees/emp101" style="color: blue">http://localhost/employees/emp101</a>. The Employee component will then read the parameter value from the URL and
+        retrieves that specific employee details by calling the server side web service.
+      </p>
+
+      <p>
+        In our previous video we have modified the code in app.module.ts file to use hash style routing. Let's remove useHash property,
+        so we are using HTML5 style routing instead of hash style routing.
+      </p>
+    </div>
+
+    <div class="fullpage_content">
+      <p>
+        In the root application module (app.module.ts), include the following route. When the user navigates to a URL like (http://localhost:12345/employees/EMP101),
+        we want to display EmployeeComponent. Notice the code parameter specified using colon (:).
+      </p>
+      <textarea class="codepart" cols="65" rows="4">
+        { 
+          path: 'employees/:code',
+          component: EmployeeComponent 
+        },
+        </textarea>
+      <p>
+        Next, in EmployeeListComponent, modify the [td] element that displays employee code to bind it to the route we created above
+        using the routerLink directive as shown below.
+      </p>
+
+      <expandable hideText="Hide the code" showText="See the code">
+        <textarea class="codepart" cols="65" rows="5">
+          <a routerLink="<'/employees', employee.code>"> 
+            
+            {employee.code | uppercase} 
+          </a> 
+        </textarea>
+      </expandable>
+
+      <p>
+        Explanation of the above code:
+        <br> 1. Notice in this example we are binding routerLink directive to an array.
+        <br> 2. This array is called link parameters array.
+        <br> 3. The first element in the array is the path of the route to the destination component.
+        <br> 4. The second element in the array is the route parameter, in our case the employee code.
+      </p>
+
+      <p>
+        In the Angular EmployeeService (employee.service.ts), introduce the following getEmployeeByCode() method.
+      </p>
+
+      <expandable hideText="Hide the code" showText="See the code">
+        <textarea class="codepart" rows="8" cols="65">
+          getEmployeeByCode(empCode: string): Observable[IEmployee] { 
+            
+            return this._http
+            .get("http://localhost:24535/api/employees/" + empCode) 
+            .map((response: Response) => [IEmployee]response.json()) 
+            .catch(this.handleError); 
+        }
+        </textarea>
+      </expandable>
+
+      <p>
+        Explanation of the above code:
+        <br> 1. This method takes employee code as a parameter and returns that employee object (IEmployee).
+        <br> 2. This method issues a GET request to the Web API service.
+        <br> 3. Once the Web API service returns the employee object, this mehod maps it to IEmployee type and returns it.
+      </p>
+
+      <p>
+        In one of our previous videos we have created EmployeeComponent to display employee details. When we created this component,
+        we have hard coded employee data in the component itself. Now let's modify it
+      </p>
+
+      <p>
+        1. To retrieve employee details by calling the Angular EmployeeService method getEmployeeByCode() we created above.
+        <br> 2. This method calls the server side Web API service which retrieves that specific employee details from the database.
+        <br> 3. The employee code parameter is in the URL
+        <br> 4. To retrieve the parameter from the URL we are using the ActivatedRoute service provided by Angular
+        <br> 5. Since ActivatedRoute is provided as a service inject it into the constructor just like how we have injected EmployeeService
+      </p>
+
+      <p>
+        There are diiferent approaches to reterieve route parameters values. We will discuss all the different approaches and when
+        to use what in our upcoming videos.
+      </p>
+
+      <p>
+        Since we need Since we need EmployeeService both in EmployeeListComponent and EmployeeComponent, let's register it in the
+        root module so we get a singleton instead of multiple instances of the service. We will discuss what is a Singleton
+        in Angular and why is it important in our next video. For now, let's remove the EmployeeService registration from
+        EmployeeListComponent by removing the following providers property in employeeList.component.ts file
+      </p>
+
+      <p>
+        providers: [EmployeeService]
+      </p>
+      <p>
+        Now regsiter the EmployeeService in application root module (app.module.ts) by including it in the providers property of
+        @NgModule decorator.
+      </p>
+    </div>
+  </div>
+</ion-content>

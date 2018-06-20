@@ -1,0 +1,116 @@
+<ion-header>
+  <common-header>Angular 2</common-header>
+</ion-header>
+
+<ion-content>
+
+  <h1 no-margin>Root Injector </h1>
+  <div padding>
+    <div class="resp-container">
+      <iframe width="560" height="315" src="https://www.youtube.com/embed/qy-0yD7hDVA" frameborder="0" allow="autoplay; encrypted-media"
+        allowfullscreen></iframe>
+    </div>
+
+    <div class="content1">
+      <h2>Angular Root Injector</h2>
+      <p>
+        In this video we will discuss the Angular root injector. In our previous video we discussed that, in Angular 2 we have one
+        root injector at the application level plus an injector at every component level.
+      </p>
+
+      <p>
+        To register a service with the root injector we use providers property of @ngModule decorator and to register a service with
+        the injector at a component levet use providers property of @Component decorator.
+      </p>
+
+      <p>
+        In our previous video we have used the @NgModule() decorator of the root module to register our service with the root injector.
+        We can also use any of the feature module's @NgModule() decorator to register our service with the root injector.
+        Let's prove this.
+      </p>
+
+      <p>
+        At the moment in our application we do not have any feature modules. So let's create a simple TestModule and then use that
+        module's @NgModule() decorator to register our service with the root injector.
+      </p>
+    </div>
+
+    <div class="fullpage_content">
+      <h2>Create Test Module</h2>
+      <br> 1. Add a new TypeScript file to the "app" folder. Name it "test.module.ts"
+      <br> 2. Copy and paste the following code in it. As you can see from the code below creating a module is very similar to
+      creating a component. To create a component, we first create a class, import @Component() decorator and decorate the
+      class with it. This makes the TypeScript class an angular component. Along the same lines, to create a module, we first
+      create a class, import @ngModule() decorator and decorate the class with it. This makes the TypeScript class an angular
+      module. So as you can see, Angular provides consistent set of patterns for creating components, pipes, directives and
+      modules.
+
+      <p>
+        Notice, we are registering our UserPreferencesService with the root injector using the @NgModule() decorator of this TestModule.
+      </p>
+
+      <expandable hideText="Hide the code" showText="See the code">
+        <textarea class="codepart" rows="5" cols="65">
+            import { NgModule } from '@angular/core'; 
+            import { UserPreferencesService } from './employee/userPreferences.service'; 
+            
+            @NgModule({ 
+              providers: [UserPreferencesService] 
+            })
+           export class TestModule { 
+
+           } 
+        </textarea>
+      </expandable>
+
+      <p>
+        3. Just like how we have imported angular system modules (like BrowserModule, FormsModule, HttpModule etc) in our root module(app.module.ts),
+        we need to import the TestModule to be able to use it in our application. So inlcude the required import statement
+        and make the TestModule part of imports array of @NgModule() decorator in the root module (i.e app.module.ts file).
+      </p>
+
+      <p>
+        Finally remove "UserPreferencesService" from the providers property. We have already registered our UserPreferencesService
+        with the root injector using the @NgModule() decorator of the TestModule.
+      </p>
+
+      <expandable hideText="Hide the code" showText="See the code">
+        <textarea class="codepart" cols="65" rows="7">
+            import { TestModule } from './test.module'; 
+            
+            @NgModule({ 
+              imports: [
+               BrowserModule, 
+               FormsModule, 
+               HttpModule, 
+               TestModule, 
+               RouterModule.forRoot(appRoutes) 
+              ],
+              declarations: [ 
+              AppComponent, 
+              EmployeeComponent, 
+              EmployeeListComponent, 
+              EmployeeTitlePipe, 
+              EmployeeCountComponent, 
+              SimpleComponent, 
+              HomeComponent, 
+              PageNotFoundComponent 
+              ], 
+              bootstrap: [AppComponent], 
+              providers: [EmployeeService] 
+            }) 
+            
+            export class AppModule { 
+
+            }
+        </textarea>
+      </expandable>
+
+      <p>
+        With all these changes run the application and test. It works exactly the same way as before. So this proves that we can
+        use any module provider property to register a service with the root injector. It can be a feature module or the
+        root module.
+      </p>
+    </div>
+  </div>
+</ion-content>

@@ -1,0 +1,73 @@
+<ion-header>
+  <common-header>Angular 2</common-header>
+</ion-header>
+
+<ion-content>
+
+  <h1 no-margin>Router Navigate Method </h1>
+  <div padding>
+    <div class="resp-container">
+      <iframe width="560" height="315" src="https://www.youtube.com/embed/PoRmZWd6xYE" frameborder="0" allow="autoplay; encrypted-media"
+        allowfullscreen></iframe>
+    </div>
+
+    <div class="content1">
+      <h2>Router Navigate Method</h2>
+
+      <p>
+        In this video we will discuss the use of Angular Router service navigate() method. This method is useful when you want to
+        navigate to another page programmatically.
+      </p>
+
+      <p>
+        Let us understand this with an example. Here is what we want to do. On the EmployeeComponent that displays specific employee
+        details, we want to include a Button. When we click the button we want to redirect the user to EmployeeListComponent.
+      </p>
+
+      <p>
+        Step 1 : Include the following HTML markup for the button on employee.component.html. Notice we are using Bootstrap button
+        css classes (btn & btn-primary) to style the button. We are using event binding to bind click event of the button
+        to bind to "onBackButtonClick()" method in the EmployeeComponent class.
+      </p>
+
+      <expandable hideText="Hide the text" showText="See the code">
+        <textarea class="codepart" rows="5" cols="65">
+            <div style="margin-top:5px"> 
+              <input type="button" class="btn btn-primary" 
+              value="Back to Employees List" (click)="onBackButtonClick()" /> 
+            </div>
+        </textarea>
+      </expandable>
+    </div>
+
+    <div class="fullpage_content">
+      <p>
+        Step 2 : In the EmployeeComponent class ie. in employee.component.ts file make the following changes
+      </p>
+
+      <p>
+        Inclue the following Import statement to import Router service from '@angular/router' import  Router } from '@angular/router';
+      </p>
+
+      <p>
+        Specify a dependency on the Router service using the EmployeeComponent class constructor. The angular injector will automatically
+        inject an instance of the Router service when an instance of EmployeeComponent is created.
+        <br> constructor(private _router:Router)  
+      </p>
+
+      <p>
+        Finally include, "onBackButtonClick()" method. Notice we are using the Router service navigate() method to navigate to "/employees"
+        route. This route is already defined in the root module (app.module.ts) which redirects the user to EmployeeListComponent.
+      </p>
+
+      <expandable hideText="Hide the code" showText="See the code">
+        <textarea class="codepart" cols="65" rows="5">
+            onBackButtonClick() :void 
+             
+              this._router.navigate(['/employees']); 
+            }
+        </textarea>
+      </expandable>
+    </div>
+  </div>
+</ion-content>

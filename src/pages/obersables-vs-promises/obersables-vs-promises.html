@@ -1,0 +1,40 @@
+<ion-header>
+  <common-header>Angular 2</common-header>
+</ion-header>
+
+<ion-content>
+
+  <h1 no-margin>Angular promises vs observables </h1>
+  <div padding>
+    <div class="resp-container">
+      <iframe width="560" height="315" src="https://www.youtube.com/embed/JFx3amVu1Yg" frameborder="0" allow="autoplay; encrypted-media"
+        allowfullscreen></iframe>
+    </div>
+
+    <div class="content1">
+      <h2>Angular promises vs observables</h2>
+      <p>
+        In this video we will discuss the differences between promises and observables. In Angular 2, to work with asynchronous data
+        we can use either Promises or Observables. In our previous videos in this series, we discussed using both Observables
+        and Promises. There are several differences between Promises and Observables. In this video let's discuss these differences.
+      </p>
+
+      <p>
+        A Promise emits a single value where as an Observable emits multiple values over a period of time. You can think of an Observable
+        like a stream which emits multiple items over a period of time and the same callback function is called for each
+        item emitted. So with an Observable we can use the same API to handle asynchronous data whether that data is emitted
+        as a single value or multiple values over a period of time.
+      </p>
+
+      <p>
+        A Promise is not lazy where as an Observable is Lazy.
+        <br> A Promise cannot be cancelled where as an Observable can be cancelled using the unsubscribe() method
+        <br> Observable provides operators like map, forEach, filter, reduce, retry, retryWhen et
+      </p>
+    </div>
+
+    <div class="fullpage_content">
+
+    </div>
+  </div>
+</ion-content>

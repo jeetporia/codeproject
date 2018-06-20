@@ -1,0 +1,141 @@
+<ion-header>
+  <common-header>Angular 2</common-header>
+</ion-header>
+
+<ion-content>
+
+  <h1 no-margin>Promises service </h1>
+  <div padding>
+    <div class="resp-container">
+      <iframe width="560" height="315" src="https://www.youtube.com/embed/5jH3FMcMdGo" frameborder="0" allow="autoplay; encrypted-media"
+        allowfullscreen></iframe>
+    </div>
+
+    <div class="content1">
+      <h2>Promises in Angular 2</h2>
+      <p>
+        In this video we will discuss using Promises instead of Observables in Angular.
+      </p>
+
+      <p>
+        In Angular we can use either Promises or Observables. By default the Angular Http service returns an Observable. To prove
+        this, hover the mouse over the get() method of the Http service in employee.service.ts file. Notice from the intellisense,
+        that it returns Observable[Response]
+      </p>
+
+      <p>
+        We disucssed Observables in Part 27 of Angular 2 tutorial. To use Promises instead of Observables we will have to first make
+        a change to the service to return a Promise instaed of an Observable.
+      </p>
+
+      <p>
+        In employee.service.ts file modify getEmployeeByCode() method as shown below. The changes are commented so they are self-explanatory
+      </p>
+
+      <expandable hideText="Hide the code" showText="See the code">
+        <textarea class="codepart" cols="82" rows="10">
+            import { Injectable } from '@angular/core'; 
+            import { IEmployee } from './employee'; 
+            import { Http, Response } from '@angular/http'; 
+            import { Observable } from 'rxjs/Observable'; 
+            import 'rxjs/add/operator/map'; 
+            import 'rxjs/add/operator/catch'; 
+            import 'rxjs/add/Observable/throw'; 
+            // import toPromise operator import 'rxjs/add/operator/toPromise'; 
+            
+            @Injectable() 
+            export class EmployeeService { 
+              constructor(private _http: Http) {
+
+               } 
+               getEmployees(): Observable[IEmployee[]] { 
+                 return this._http.get('http://localhost:24535/api/employees') 
+                 .map((response: Response) =] [IEmployee[]]response.json()) .catch(this.handleError); 
+                } 
+                // Notice we changed the return type of the method to Promise[IEmployee] 
+                // from Observable[IEmployee]. We are using toPromise() operator to 
+                // return a Promise. When an exception is thrown handlePromiseError() 
+                // logs the error to the console and throws the exception again 
+                
+                getEmployeeByCode(empCode: string): Promise[IEmployee] { 
+                  return this._http.get("http://localhost:24535/api/employees/" + empCode) 
+                  .map((response: Response) =] [IEmployee]response.json()) 
+                  .toPromise() 
+                  .catch(this.handlePromiseError); 
+                } // This method is introduced to handle exceptions 
+                handlePromiseError(error: Response) { 
+                  console.error(error); throw(error); 
+                } 
+                handleError(error: Response) { 
+                  console.error(error); 
+                  return Observable.throw(error); 
+                } 
+              }
+        </textarea>
+      </expandable>
+    </div>
+
+    <div class="fullpage_content">
+      <p>
+        Modify the code in employee.component.ts file as shown below. The code that we have changed is commented and is self-explanatory.
+      </p>
+
+      <expandable hideText="Hide the code" showText="See the code">
+        <textarea class="codepart" cols="85" rows="10">
+              import { Component, OnInit } from '@angular/core'; 
+              import { IEmployee } from './employee'; 
+              import { EmployeeService } from './employee.service'; 
+              import { ActivatedRoute } from '@angular/router'; 
+              import { Router } from '@angular/router'; 
+              
+              @Component({ 
+                
+                selector: 'my-employee', 
+                templateUrl: 'app/employee/employee.component.html', 
+                styleUrls: ['app/employee/employee.component.css'] 
+              
+              }) 
+              
+              export class EmployeeComponent implements OnInit { 
+                employee: IEmployee; 
+                statusMessage: string = 'Loading data. Please wait...'; 
+                
+                constructor(private _employeeService: EmployeeService, private _activatedRoute: 
+                ActivatedRoute, private _router: Router) {
+
+                 } 
+                 
+                 ngOnInit() { 
+                   
+                  let empCode: string = this._activatedRoute.snapshot.params['code']; 
+                  // The only change that we need to make here is use 
+                  // then() method instead of subscribe() method 
+                  
+                  this._employeeService.getEmployeeByCode(empCode) 
+                  .then((employeeData) =] {
+                     if (employeeData == null) { 
+                       this.statusMessage = 'Employee with the specified Employee Code does not exist'; 
+                      }
+                     else {
+                       this.employee = employeeData; 
+                      } 
+                    }, 
+                    (error) =] { this.statusMessage = 'Problem with the service. Please try again after sometime'; 
+                    console.error(error); 
+                  }); 
+                } 
+              
+              onBackButtonClick(): void { 
+                this._router.navigate(['/employees']); 
+              } 
+            } 
+          </textarea>
+      </expandable>
+
+      <p>
+        With the above changes, we are now using a Promise instead of an Observable and the application works the same way as before.
+      </p>
+      
+    </div>
+  </div>
+</ion-content>

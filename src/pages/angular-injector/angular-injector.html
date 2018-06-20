@@ -1,34 +1,80 @@
 <ion-header>
-    <common-header>Angular 2</common-header>
-  </ion-header>
-  
-  <ion-content>
-  
-    <h1 no-margin>Angular 2 Injector</h1>
-    <div padding>
-      <div class="resp-container">
-        <iframe width="560" height="315" src="https://www.youtube.com/embed/UA0hWHohSYQ" frameborder="0" allow="autoplay; encrypted-media"
-          allowfullscreen></iframe>
-      </div>
-  
-      <div class="content1">
-        <h2>Injector</h2>
-        <p>
-          In our previous video we discussed why should we use dependency injection and the benefits it provides. One of the benefits
-          of dependency injection is that it allows us to share data and functionality easily as the angular injector provides
-          a Singleton i.e a single instance of the service.
-        </p>
-  
-        <p>
-          So in this videos let us see how we can use Angular services and dependency injection to create a Singleton i.e a single
-          instance of the service which enables us to share data and functionality across multiple components in our application.
-          To better understand this video, please watch our previous video - Why dependency injection.
-        </p>
-  
-      </div>
-  
-      <div class="fullpage_content">
-  
-      </div>
+  <common-header>Angular 2</common-header>
+</ion-header>
+
+<ion-content>
+
+  <h1 no-margin>Angular 2 Injector</h1>
+  <div padding>
+    <div class="resp-container">
+      <iframe width="560" height="315" src="https://www.youtube.com/embed/dH1EWRoEcMo" frameborder="0" allow="autoplay; encrypted-media"
+        allowfullscreen></iframe>
     </div>
-  </ion-content>
+
+    <div class="content1">
+      <h2>Injector</h2>
+
+      <p>
+        In this video we will discuss Angular Injectors. This is continuation to Part 34. Please watch Part 34 from Angular 2 tutorial
+        before proceeding.
+      </p>
+
+      <p>
+        In Part 32 of Angular 2 tutorial we discussed what is dependency injection and how it is implemented in Angular. There are
+        2 simple steps to use dependency injection in Angular. For example, if you have a component that depends on a service
+        and needs an instance of it,
+      </p>
+
+      <p>
+        Step 1 : First register the service with the angular injector
+        <br> Step 2 : Specify a dependency using the constructor of your component class.
+      </p>
+
+      <p>
+        With these 2 steps in place, the angular injector will automatically inject an instance of the the service into the component's
+        constructor when an instance of the component is created.
+      </p>
+
+      <p>
+        Angular 1 has only one global injector but in Angular 2 we have one injector at the application root level and hierarchichal
+        injectors that parallel an application's component tree. This means in Angular 2, we have one root injector plus
+        an injector at every component level.
+      </p>
+
+
+    </div>
+
+    <div class="fullpage_content">
+      <p>
+        If a service is registered with the root injector then that service is available for all components in our entire application
+        including the components in lazy loaded modules. We will discuss lazy loaded modules in a later video in this series.
+      </p>
+
+      <p>
+        If a service is registered with the injector at the Application Root component level, then that service is available for
+        all the components in the application except the components in lazy loaded modules.
+      </p>
+
+      <p>
+        If a service is regsitered with a specific component injector, then that service is available for that component and any
+        of it's children. For example, if we register a service with Component X injector, then that service is available
+        for Components X, Y & Z but not for Component A. Similarly if a we register a service with Component A injector,
+        then that service is available only for Component A but not for Components X, Y & Z.
+      </p>
+
+      <p>
+        We can register a service with the angular injector using the providers property of @Component decorator or @NgModule decorator.
+
+      </p>
+
+      <p>
+        To register a service with the root injector use providers property of @ngModule decorator of root module (app.module.ts)
+        or any feature module
+      </p>
+
+      <p>
+        To register a service with the injector at a component levet use providers property of @Component decorator
+      </p>
+    </div>
+  </div>
+</ion-content>

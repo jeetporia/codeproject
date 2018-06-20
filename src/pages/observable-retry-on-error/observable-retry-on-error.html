@@ -1,0 +1,98 @@
+<ion-header>
+  <common-header>Angular 2</common-header>
+</ion-header>
+
+<ion-content>
+
+  <h1 no-margin>Observable retry on error </h1>
+  <div padding>
+    <div class="resp-container">
+      <iframe width="560" height="315" src="https://www.youtube.com/embed/eAz5RFsewd8" frameborder="0" allow="autoplay; encrypted-media"
+        allowfullscreen></iframe>
+    </div>
+
+    <div class="content1">
+      <h2>Observable retry on error</h2>
+
+      <p>
+        In this video we will how to resubscribe and retry an Observable if there is an error.
+      </p>
+
+      <p>
+        Please change getEmployeeByCode() method in employee.service.ts file to return an Observable instead of a Promise.
+      </p>
+
+      <p>
+        To cause an error, stop the Web API Service. At this point if you navigate to http://localhost:12345/src/employees/..., the
+        application display a message stating - Problem with the service. Please try again after sometime. In the "Console"
+        tab of the "Browser Developer Tools" you will see - ERR_CONNECTION_REFUSED.
+      </p>
+
+      <p>
+        To resubscribe to the Observable and retry, use the rxjs retry operator. The changes in employee.component.ts file are commented
+        and self explanatory.
+      </p>
+
+      <p>
+        The downside of this approach is that the application keeps on retrying forever. If we start the Web API service, the call
+        succeeds and the observable completes with employee data displayed on the web page.
+      </p>
+
+    </div>
+
+    <div class="fullpage_content">
+      <p>
+        Now if your requirement is not to retry forever, but only retry for a specific number of times if there is an error then
+        we can use another variation of retry as shown below. Notice in this case we are passing number 3 to the retry opertaor
+        indicating that we only want to retry 3 times. After the 3rd attempt the observable completes with an error.
+      </p>
+
+      <p>
+        // Retry only 3 times if there is an error .retry(3)
+      </p>
+
+      <p>
+        The problem with the retry operator is that, it immidiately retries when there is an error. In our case it is a connection
+        issue with the service. Retrying again immediately in our case does not make much sense, as most likely it might
+        fail again. So in situations like this we may want to retry after a short delay, may be after a second or so. This
+        is when we use the retryWhen rxjs operator. retryWhen operator allows us to specify delay in milli-seconds and can
+        be used as shown below. Please donot forget to import retryWhen and delay operators.
+      </p>
+
+      <p>
+          // The delay operator will not work with retry<br>
+           .retry().delay(5000)
+      </p>
+
+      <p>
+          If you want to retry every 1000 milli-seconds only for a miximum of 5 times then we can use rxjs scan operator along with the take operator. While retrying we also want to show the retry attempt number to the user on the web page. 
+      </p>
+
+      <p>
+          After all the retry attempts are exhausted, the application should stop retrying and display the error message to the user. 
+      </p>
+
+      <p>
+          If the connection becomes available between the retry attempts, the application should display employee data.
+      </p>
+
+      <expandable hideText="Hide the code" showText="See the code">
+        <textarea class="codepart" rows="10" cols="80">
+            this._employeeService.getEmployeeByCode(empCode) 
+            // Retry 5 times maximum with a delay of 1 second 
+            // between each retry attempt 
+            .retryWhen((err) =] { 
+              return err.scan((retryCount, val) =] { 
+                retryCount += 1; if (retryCount [ 6) { 
+                  this.statusMessage = 'Retrying...Attempt #' + retryCount; return retryCount; 
+                } 
+            else { 
+              throw (err); 
+            } 
+          }, 0)
+          .delay(1000) }) 
+        </textarea>
+      </expandable>
+    </div>
+  </div>
+</ion-content>

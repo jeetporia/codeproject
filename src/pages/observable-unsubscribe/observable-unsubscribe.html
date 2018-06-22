@@ -1,34 +1,63 @@
 <ion-header>
-    <common-header>Angular 2</common-header>
-  </ion-header>
-  
-  <ion-content>
-  
-    <h1 no-margin>Singleton service </h1>
-    <div padding>
-      <div class="resp-container">
-        <iframe width="560" height="315" src="https://www.youtube.com/embed/UA0hWHohSYQ" frameborder="0" allow="autoplay; encrypted-media"
-          allowfullscreen></iframe>
-      </div>
-  
-      <div class="content1">
-        <h2>Singleton services</h2>
-        <p>
-          In our previous video we discussed why should we use dependency injection and the benefits it provides. One of the benefits
-          of dependency injection is that it allows us to share data and functionality easily as the angular injector provides
-          a Singleton i.e a single instance of the service.
-        </p>
-  
-        <p>
-          So in this videos let us see how we can use Angular services and dependency injection to create a Singleton i.e a single
-          instance of the service which enables us to share data and functionality across multiple components in our application.
-          To better understand this video, please watch our previous video - Why dependency injection.
-        </p>
-  
-      </div>
-  
-      <div class="fullpage_content">
-  
-      </div>
+  <common-header>Angular 2</common-header>
+</ion-header>
+
+<ion-content>
+
+  <h1 no-margin> Observable Unsubsribe </h1>
+  <div padding>
+    <div class="resp-container">
+      <iframe width="560" height="315" src="https://www.youtube.com/embed/bboOU4cskYI" frameborder="0" allow="autoplay; encrypted-media"
+        allowfullscreen></iframe>
     </div>
-  </ion-content>
+
+    <div class="content1">
+      <h2> Observable Unsubsribe</h2>
+      <p>
+        In this video, we will discuss how to cancel an Observable using the unsubscribe method.
+      </p>
+
+      <p>
+        Let us understand this with an example. Here is what we want to do. When the request to the server is in progress we want
+        to display "Cancel Request" button.
+      </p>
+
+      <p>
+        The "Cancel Request" button should only be visible to the user when there is a request in progress. When the request fails
+        permanently after exhausing all the retry attempts the button should disappear.
+      </p>
+
+      <p>
+        Along the same lines if the request completes successfully, then also the button should disappear.
+      </p>
+
+      <p>
+        When the user cancels the request, by clicking the "Cancel Request" button, the request should be cancelled and button should
+        disappear.
+      </p>
+
+
+
+    </div>
+
+    <div class="fullpage_content">
+      <p>
+        To achieve this, include the following HTML in employee.component.html file. This HTML is for the "Cancel Request" button.
+        Please pay attention to the structural directive ngIf on the [div] element that contains the button. As you can see
+        we are showing the "Cancel Request" button only if the subscription is not closed (!subscription.closed), meaning
+        only when there is a request to the Observable is in progress. The ngIf directive will take care of showing and hinding
+        the [div] element depending on whether the subscription is closed or not. We are also binding the click event of
+        the button to "onCancelButtonClick()" method. We will create both the subscription object and the "onCancelButtonClick()"
+        method in the component class.
+      </p>
+
+      <expandable hideText="Hide the code" showText="See the code">
+        <textarea class="codepart" cols="85" rows="3">
+          <div style="margin-top:5px" *ngIf="!subscription.closed"> 
+            <input type="button" class="btn btn-primary" value="Cancel Request" (click)="onCancelButtonClick()" /> 
+          </div>
+        </textarea>
+      </expandable>
+    </div>
+  </div>
+</ion-content>

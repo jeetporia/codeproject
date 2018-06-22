@@ -50,6 +50,9 @@ import { RouterNavigateMethodPage } from '../pages/router-navigate-method/router
 import { PromisesAngular2Page } from '../pages/promises-angular2/promises-angular2';
 import { ObersablesVsPromisesPage} from '../pages/obersables-vs-promises/obersables-vs-promises';
 import { ObservableRetryOnErrorPage } from '../pages/observable-retry-on-error/observable-retry-on-error';
+import { ObservableUnsubscribePage } from '../pages/observable-unsubscribe/observable-unsubscribe';
+import { DifferenceAngularjs_2_4Page } from '../pages/difference-angularjs-2-4/difference-angularjs-2-4';
+import { WrapUpPage } from '../pages/wrap-up/wrap-up';
 export const PagesList = [
     { component: HomePage,                  title: 'Home' },
     { component: OverviewPage,              title: 'OverView Of course'},
@@ -91,6 +94,9 @@ export const PagesList = [
     { component: PromisesAngular2Page,      title: 'Promises in Angular 2'},
     { component: ObersablesVsPromisesPage,  title: 'Observable vs Promises'},
     { component: ObservableRetryOnErrorPage,title: 'Obserbavle Retry on Error'},
+    { component: ObservableUnsubscribePage, title: 'Observable Unsubscribe'},
+    { component: DifferenceAngularjs_2_4Page, title: 'Difference between AngularJS, Angular 2 & Angular 4'},
+    { component: WrapUpPage,                title: 'Wrap up and what next..!'},
     // add new here
     { component: BasicElementsPage,     title: 'Basic SVG Elements' },
     { component: BasicShapesPage,       title: 'Basic Shapes' },
@@ -267,6 +273,18 @@ export const Menu: MenuOptionModel[] = [
             displayName: 'Observable retry on error',
             component : ObservableRetryOnErrorPage,
         },
+        {
+            displayName : 'Observable Unsubscribe',
+            component : ObservableUnsubscribePage,
+        },
+        {
+            displayName: 'Difference between Angular js, Angular 2 and Angular 4',
+            component : DifferenceAngularjs_2_4Page,
+        },
+        {
+            displayName: 'Wrap up and what next..!',
+            component : WrapUpPage,
+        },  
         // here add new one
         {
             displayName: 'Basic SVG Elements',

@@ -1,0 +1,129 @@
+<ion-header>
+  <common-header>Angular 2</common-header>
+</ion-header>
+
+<ion-content>
+
+  <h1 no-margin>Differences between Angular JS, Angular 2 and Angular 4 </h1>
+  <div padding>
+    <div class="resp-container">
+      <iframe width="560" height="315" src="https://www.youtube.com/embed/bAx2LgQLkl8" frameborder="0" allow="autoplay; encrypted-media"
+        allowfullscreen></iframe>
+    </div>
+
+    <div class="content1">
+      <h2>Differences between Angular JS, Angular 2 and Angular 4</h2>
+      <p>
+        So far Google has released 3 versions of Angular
+        <br> Version Year
+        <br> ------------ ------
+
+        <br>AngularJS 2010
+        <br> Angular 2 2016
+        <br> Angular 4 2017
+      </p>
+
+      <h2>
+        difference between AngularJS and Angular 2
+      </h2>
+      <p>
+        The first version of Angular is called AngularJS and was released in the year 2010. Some people call it Angular 1, but it
+        is officially called AngularJS.
+      </p>
+
+
+
+
+    </div>
+
+    <div class="fullpage_content">
+      <p>
+        Angular 2 is released in the year 2016. The most important thing to keep in mind is that, Angular 2 is not a simple upgrade
+        from angular 1.
+      </p>
+
+      <p>
+        Angular 2 is completely rewritten from the ground up and as a result the way we write applications with AngularJS and Angular
+        2 is very different.
+      </p>
+      <p>
+        From a performance standpoint, Angular 2 is 5 times faster compared to AngularJS.
+      </p>
+
+      <p>
+        AngularJS was not built for mobile devices, where as Angular 2 on the other hand is designed from the ground up with mobile
+        support in mind.
+      </p>
+      <p>
+        With Angular 2 we have more language choices. In additon to nativa JavaScript we can use TypeScript, Dart, PureScript, Elm,
+        etc.
+      </p>
+
+      <p>
+        Angular 4 is released in 2017. So, What is the difference between Angular 2 and Angular 4
+      </p>
+
+      <p>
+        If you have worked with both Angular 1 and Angular 2, then you already know that the API's and patterns that we use to build
+        applications are very different between these 2 versions. From a developer stand point, it is like learning 2 different
+        frameworks. Since Angular 2 is a complete rewrite from Angular 1, moving from Angular 1 to Angular 2 is a total breaking
+        change.
+      </p>
+
+      <p>
+        However, changing from Angular 2 to Angular 4 and even future versions of Angular, won’t be like changing from Angular 1.
+        It won’t be a complete rewrite, it will simply be a change in some core libraries. From a developer standpoint, building
+        an application using Angular 2 and Angular 4 is not very different. We still use the same concepts and patterns.
+        Angular 4 is simply, the next version of Angular 2. The underlying concepts are still the same and if you have already
+        learnt Angular 2 then you’re well prepared to switch to Angular 4.
+      </p>
+
+      <p>
+        The most important point to keep in mind is, Angular 4 is backwards compatible with Angular 2 for most applications.
+      </p>
+
+      <h2>
+        What changes and updates in Angular 4
+      </h2>
+
+      <p>Some under the hood changes to reduce the size of the AOT (Ahead-of-Time) compiler generated code. Migrating to Angular
+        4 may reduce the production bundles by hundreds of kilobytes. As a developer this change will not affect the way
+        we write angular applications in any way.
+      </p>
+
+      <p>
+        TypeScript 2.1 and 2.2 compatibility. Angular is updated with a more recent version of TypeScript, for better type checking
+        throughout our application. Up until Angular 4, only TypeScript 1.8 was supported. With Angular 4, we can use typescript
+        2.1 or 2.2 which means we can use all the new features of TypeScript with Angular 4.
+      </p>
+
+      <p>
+        Animation features are pulled out of @angular/core and are moved into their own package. This means that if you don’t use
+        animations, this extra code will not end up in your production bundles. On the other hand, if you do have animations
+        in your application, you may have to change your existing code to pull the animation features from the animations
+        package.
+      </p>
+
+      <p>
+        We can now use an if/else style syntax with *ngIf structural directive. In Angular 2, to implement if/else logic, we use
+        2 *ngIf structural directives. With Angular 4, we can use it's new if/else style syntax with *ngIf structural directive.
+        We will discuss an example of this in our upcoming videos.
+      </p>
+
+      <h2>
+        What happened to Angular 3.
+      </h2>
+
+      <p>
+        Why did we move straight from Angular 2 to Angular 4. What is the reason for skipping Angular 3. Except the Router library,
+        all the other Angular core libraries are versioned the same way and are shipped as NPM packages as you can see below.
+        While all the other core angular packages are at Version 2, the router library is already at Version 3.
+      </p>
+
+      <p>
+        Due to this misalignment of the router package’s version, the angular team decided to go straight for Angular v4. This way,
+        all the core packages are aligned which will be easier to maintain and help avoid confusion in the future.
+      </p>
+    </div>
+  </div>
+</ion-content>

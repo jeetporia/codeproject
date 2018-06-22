@@ -7,7 +7,7 @@ import { MenuOptionModel } from '../components/side-menu-content/models/menu-opt
 import { SideMenuSettings } from '../components/side-menu-content/models/side-menu-settings';
 import { HomePage } from '../pages/home/home';
 import { SideMenuContentComponent } from '../components/side-menu-content/side-menu-content.component';
-import { ObservableUnsubscribePage } from '../pages/observable-unsubscribe/observable-unsubscribe';
+import { WrapUpPage } from '../pages/wrap-up/wrap-up';
 @Component({
     templateUrl: 'app.html'
 })
@@ -15,7 +15,7 @@ import { ObservableUnsubscribePage } from '../pages/observable-unsubscribe/obser
 export class MyApp {
 
     //rootPage: any = RootPage;
-    rootPage : any = ObservableUnsubscribePage;
+    rootPage : any = WrapUpPage;
     @ViewChild(Nav) nav: Nav;
 
     // Get the instance to call the public methods
